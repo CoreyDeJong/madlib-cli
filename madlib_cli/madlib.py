@@ -1,5 +1,6 @@
 from textwrap import dedent
 
+# items = dict.fromkeys(menu_list,values)
 # f = open('./madlib-cli')
 
 def welcome():
@@ -19,52 +20,39 @@ def getKeys():
 
     with open("../assets/madlib-template.txt") as template:
         content = template.read()
+      
+    keyList = []
+    last=0
 
+    numOfKeys = content.count('{')
+    
 
+    for i in range(numOfKeys):
+        begin = content.find('{', last)+1
+        last = content.find('}', begin)
+        key = content[begin : last]
+        keyList.append(key)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def user_input():
-#     print(dedent("""
-#     ***********************************
-#     ** What would you like to order? **
-#     ***********************************
-#     """))
-#         while True:
-#         order=input()
-#         if order == 'quit':
-#             break
+    return keyList
         
-#         # update items
-#         # items[order] += 1
 
-#         ## when user places an order           
-#         if order in items:
-#                 amount = items[order]
-#                 if amount ==0:
-#                     print(f"\n** {amount + 1} order of {order} have been added to your meal **\n")
-#                     items[order]+=1
-#                 if amount >=1:
-#                     print(f"\n** {amount + 1} orders of {order} have been added to your meal **\n")
-#                     items[order]+=1
-
+def user_input(keyList):
+     
+    numQuestions = len(keyList)
+    user_answers = []
+    for i in range(numQuestions):
+        print(f"Please enter a {keyList[i]}")
+        user_answers.append(input())
+    
+    return user_answers
 
 
 def main():
     welcome()
-    # show_menu()
-    # take_order()
+    keyList=getKeys()
+    user_input(keyList)
+
 
 if __name__ =="__main__":
     main()
+   
