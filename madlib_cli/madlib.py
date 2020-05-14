@@ -26,7 +26,6 @@ def getKeys():
 
     numOfKeys = content.count('{')
     
-
     for i in range(numOfKeys):
         begin = content.find('{', last)+1
         last = content.find('}', begin)
@@ -46,11 +45,22 @@ def user_input(keyList):
     
     return user_answers
 
+def returnKeys(user_answers, keyList):
+
+    with open("../assets/madlib-template.txt", 'r') as template:
+        content = template.read()
+
+    for i in range(len(user_answers)):
+        content=content.replace(keyList[i], user_answers[i],1)
+
+    with open("../assets/madlib-response.txt","a") as xtemplate:
+        xtemplate.write(content)
 
 def main():
     welcome()
     keyList=getKeys()
-    user_input(keyList)
+    user_answers=user_input(keyList)
+    returnKeys(user_answers, keyList)
 
 
 if __name__ =="__main__":
