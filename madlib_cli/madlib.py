@@ -1,8 +1,5 @@
 from textwrap import dedent
 
-# items = dict.fromkeys(menu_list,values)
-# f = open('./madlib-cli')
-
 def welcome():
     message = """
         **************************************
